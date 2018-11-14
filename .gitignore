@@ -1,4 +1,5 @@
 *.log
+install_osm.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
