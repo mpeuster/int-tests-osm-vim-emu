@@ -14,6 +14,9 @@ chmod +x install_osm.sh
 
 # uninstall old OSM
 ./install_osm.sh --uninstall 2>&1 | tee logs/osm_uninstall.log
+# uninstall vim-emu
+docker stop vim-emu || true
+docker rm -f vim-emu || true
 
-# install new OSM
-./install_osm.sh 2>&1 | tee logs/osm_install.log
+# install new OSM with vim-emu
+./install_osm.sh --vimemu 2>&1 | tee logs/osm_install.log

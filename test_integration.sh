@@ -15,7 +15,7 @@ if [ $(osm vim-list | wc -l) -ne 4 ]; then
     echo "FAIL"
     exit 1
 fi
-# creat vim
+# create vim
 osm vim-create --name test-vim1 --user username --password password --auth_url http://$VIMEMU_HOSTNAME:6001/v2.0 --tenant tenantName --account_type openstack
 sleep 1
 # check if vim is there
