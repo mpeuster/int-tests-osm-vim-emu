@@ -75,7 +75,7 @@ if [ $(osm ns-list | grep -c 'done') == 0 ]; then
     echo "FAIL"
     exit 1
 fi
-
+echo "PASS"
 
 ###
 ### Test 4
