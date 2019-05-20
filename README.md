@@ -1,2 +1,5 @@
-# int-tests-osm-vim-emu-r5
-Integration tests OSM rel. FIVE vs. vim-emu
+# int-tests-osm-vim-emu
+Integration tests OSM vs. vim-emu
+
+* release FIVE
+* release SIX
