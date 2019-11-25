@@ -9,7 +9,7 @@ pwd
 rm -f install_osm.sh
 
 # get latest installer
-wget https://osm-download.etsi.org/ftp/osm-5.0-five/install_osm.sh
+wget https://osm-download.etsi.org/ftp/osm-6.0-six/install_osm.sh
 chmod +x install_osm.sh
 
 # uninstall old OSM
