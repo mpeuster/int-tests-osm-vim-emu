@@ -12,18 +12,21 @@ export VIMEMU_HOSTNAME=$(docker inspect -f '{{range .NetworkSettings.Networks}}{
 echo $VIMEMU_HOSTNAME
 # check if no vim is present before test
 if [ $(osm vim-list | wc -l) -ne 4 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 # create vim
 osm vim-create --name test-vim1 --user username --password password --auth_url http://$VIMEMU_HOSTNAME:6001/v2.0 --tenant tenantName --account_type openstack
 sleep 1
 # check if vim is there
 if [ $(osm vim-list | grep -c 'test-vim1') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
-echo "PASS"
 
 ###
 ### Test 2
@@ -34,21 +37,27 @@ osm vnfd-create vnf/hackfest_1_vnfd.tar.gz
 osm vnfd-create vnf/hackfest_2_vnfd.tar.gz
 # check if VNFDs are there
 if [ $(osm vnfd-list | grep -c 'hackfest1-vnf') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 if [ $(osm vnfd-list | grep -c 'hackfest2-vnf') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 # create NSD
 osm nsd-create ns/hackfest_1_nsd.tar.gz
 # check if NSD is there
 if [ $(osm nsd-list | grep -c 'hackfest1-ns') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
-echo "PASS"
+
 
 ###
 ### Test 3
@@ -60,48 +69,65 @@ echo "Waiting for instantiation ..."
 sleep 20
 echo "done"
 if [ $(osm ns-list | grep -c 'test-ns1-cli') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 if [ $(osm ns-list | grep -c 'running') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 if [ $(osm ns-list | grep -c 'configured') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 if [ $(osm ns-list | grep -c 'done') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
-echo "PASS"
+
 
 ###
 ### Test 4
 ###
 echo "********* Test 4: list commands *********"
 if [ $(osm vim-list | grep -c 'test-vim1') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 if [ $(osm vnfd-list | grep -c 'hackfest1-vnf') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 if [ $(osm vnfd-list | grep -c 'hackfest2-vnf') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 if [ $(osm nsd-list | grep -c 'hackfest1-ns') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 if [ $(osm ns-list | grep -c 'test-ns1-cli') == 0 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
-echo "PASS"
 
 ###
 ### OPTIONAL: Manual hold running deployment
@@ -120,8 +146,10 @@ echo "Waiting for termination ..."
 sleep 10
 echo "done"
 if [ $(osm ns-list | wc -l) -ne 4 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 
 ###
@@ -131,17 +159,20 @@ echo "********* Test 6: delete descriptors *********"
 # delete NSD
 osm nsd-delete hackfest1-ns
 if [ $(osm nsd-list | wc -l) -ne 4 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
 # delete VNFDs
 osm vnfd-delete hackfest1-vnf
 osm vnfd-delete hackfest2-vnf
 if [ $(osm vnfd-list | wc -l) -ne 4 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
-echo "PASS"
 
 ###
 ### Test 7
@@ -150,14 +181,15 @@ echo "********* Test 7: vim-delete *********"
 osm vim-delete test-vim1
 sleep 1
 if [ $(osm vim-list | wc -l) -ne 4 ]; then
-    echo "FAIL"
-    exit 1
+    echo -e "\e[1m\e[31mFAIL\e[0m"
+    #    exit 1
+else
+    echo -e "\e[1m\e[32mPASS\e[0m"
 fi
-echo "PASS"
 
 ###
 ### Done
 ###
 echo "**************************************"
-echo "*********        PASS        *********"
+echo "*********        DONE        *********"
 echo "**************************************"
