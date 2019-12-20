@@ -18,8 +18,13 @@ chmod +x install_osm.sh
 docker stop vim-emu || true
 docker rm -f vim-emu || true
 
+docker volume prune -f
+docker system prune -f
+
+sleep 20
+
 # install new OSM with vim-emu
-./install_osm.sh -y -r testing -R ReleaseSIX-daily -u https://osm-download.etsi.org/repository/osm/debian -t releasesix-daily --vimemu 2>&1 | tee logs/osm_install.log 
+./install_osm.sh --vimemu 2>&1 | tee logs/osm_install.log 
 
 # add ELK stack
 #./install_osm.sh -o elk_stack | tee logs/osm_install_elk.log
